@@ -1,4 +1,7 @@
-# Redux Decorated Reducers
+# Redux Arrows - WIP
+Generalize redux reducers into haskell arrows
+
+## Why?
 Ever thought about combining the cleaniness of DDAU redux state management with the fine-tuned observable control of MobX (or, if you're in ember-land, computed-properties)? Now you can!
 
 By declaring metadata on your reducers, you can now subscribe to just changes in the redux store you're interested in. No change to your underlaying data-structure, reopening Object prototype, or any other junk necessary.

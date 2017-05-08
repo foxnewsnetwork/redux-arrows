@@ -1,14 +1,14 @@
 {
-  "name": "redux-decorated-reducers",
+  "name": "redux-arrows",
   "version": "1.0.0",
-  "description": "redux reducer decorating library for declaring properties and enabling easy integration with the observable pattern",
+  "description": "Extension to redux to generalize reducers from just functions to haskell arrows via extensible functions",
   "main": "src/index.js",
   "scripts": {
     "test": "jest --notify"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/foxnewsnetwork/redux-decorated-reducers.git"
+    "url": "git+https://github.com/foxnewsnetwork/redux-arrows.git"
   },
   "keywords": [
     "computed",
@@ -19,9 +19,9 @@
   "author": "Thomas Chen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/foxnewsnetwork/redux-decorated-reducers/issues"
+    "url": "https://github.com/foxnewsnetwork/redux-arrows/issues"
   },
-  "homepage": "https://github.com/foxnewsnetwork/redux-decorated-reducers#readme",
+  "homepage": "https://github.com/foxnewsnetwork/redux-arrows#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
