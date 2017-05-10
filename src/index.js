@@ -1,8 +1,4 @@
-class ExtensibleFunction extends Function {
-  constructor(f) {
-    return Object.setPrototypeOf(f, ExtensibleFunction.constructor.prototype);
-  }
-}
+
 
 class ReadingFunction extends ExtensibleFunction {
   constructor(fn, depKeys=[]) {
