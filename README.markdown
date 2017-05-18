@@ -9,19 +9,41 @@ By declaring metadata on your reducers, you can now subscribe to just changes in
 ## Usage
 Decorate your reducers with metadata regarding what state it reads and what state it updates like so:
 
+(without decorators)
 ```javascript
+import Actions from './actions';
+import ReduxArrows from 'redux-arrows';
+
 const Reducers = {
-  @reads('posts.post', 'activeUser')
-  @writes('activePost')
-  myReducer(state, action) {
+  [Actions.SOME_TYPE]: ReduxArrows.redArrow('someProp', (state, action) => {
       /* write your reducer here */
+  }),
+  [Actions.ANOTHER_TYPE]: ReduxArrows.redArrow('someProp', 'anotherProp', (state, action) => {
+      /* write your reducer here */
+  }).
+  [Actions.THIRD_TYPE]: (state, action) => {
+    // regular reducer
   }
 }
-```
 
-Then, subscribe to just the stuff that changes later on:
+const arrowReducer = ReduxArrows.combineArrows(Reducers);
+
+const { state, meta } = ReduxArrows.runKleisli(arrowReducer, { state: myState, action: someAction });
+```
+Here, state is the next state as traditionally manufactured by a reducer.
+
+Meta is an object that contains the following:
+```javascript
+meta = {
+  changedKeys: ['someProp']
+}
+```
+That is, in addition to giving you the state, we also give you what portions of the state changed with respect to the previous state. We do this so you can subscribe to only the stuff you're interested in on the store.
 
 ```javascript
-this.store.subscribe('activePost', myCallback);
+store.subscribe('activePost', myCallback);
 ```
 
+This, in turn, unifies the MobX / Ember `computed` pattern of data management with redux's functional paradigm... and we get there by being even more declarative in redux
+
+## API

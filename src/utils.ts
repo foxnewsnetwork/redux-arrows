@@ -34,3 +34,20 @@ function setCore(keys: string[], val: any, obj?: Hash): Hash {
 export function parseKeys(keyStr: string): string[] {
   return keyStr.split('.');
 }
+
+export class Tuple<A, B> {
+  static create(a, b) {
+    return new Tuple(a, b);
+  }
+  first: A
+  second: B
+  constructor(first, second) {
+    this.first = first;
+    this.second = second;
+  }
+  get last(): B {
+    return this.second;
+  }
+}
+
+export function isBlank(x: any): boolean { return typeof x === 'undefined'; }
