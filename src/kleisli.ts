@@ -2,8 +2,8 @@ import { Arrow, ArrowInstance } from './arrow';
 import { MonadInstance } from './monad';
 import { PureFunction } from './function';
 
-export interface Kleisli<A, B, M extends MonadInstance<B> > extends Arrow<A,B> {
-  runKleisli(k: KleisliInstance<A, B, M>, a: A): M;
+export interface Kleisli extends Arrow {
+  runKleisli<A, B, M extends MonadInstance<B>>(k: KleisliInstance<A, B, M>, a: A): M;
 
   /**
    * Equivalent to ^>> from haskell
@@ -22,13 +22,13 @@ export interface Kleisli<A, B, M extends MonadInstance<B> > extends Arrow<A,B> {
    * can't because no haskell typeclass... so just don't switch
    * monads mid-way through and we should be fine (lol)
    */
-  appendPure<C, MC extends MonadInstance<C>>(k: KleisliInstance<A, B, M>, fn: PureFunction<B, C>): KleisliInstance<B, C, MC>
+  appendPure<A, B, M extends MonadInstance<B>, C, MC extends MonadInstance<C>>(k: KleisliInstance<A, B, M>, fn: PureFunction<B, C>): KleisliInstance<B, C, MC>
 
-  prependPure<C, MC extends MonadInstance<C>>(fn: PureFunction<A, B>, k: KleisliInstance<B, C, MC>): KleisliInstance<A, B, M>
+  prependPure<A, B, M extends MonadInstance<B>, C, MC extends MonadInstance<C>>(fn: PureFunction<A, B>, k: KleisliInstance<B, C, MC>): KleisliInstance<A, B, M>
 }
 
-export interface KleisliInstance<A, B, MB extends MonadInstance<B>> extends ArrowInstance<A,B> {
-  runKleisli(a: A): MB;
-  appendPure<C, MC extends MonadInstance<C>>(fn: PureFunction<B, C>): KleisliInstance<B, C, MC>
-  prependPure<Z>(fn: PureFunction<Z, A>): KleisliInstance<Z, B, MB>
+export interface KleisliInstance<A, B, MB extends MonadInstance<B>> extends ArrowInstance<A, B> {
+  /**
+   * Empty for the same reason arrow and monad instances are empty
+   */
 }

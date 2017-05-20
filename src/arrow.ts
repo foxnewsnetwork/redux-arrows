@@ -1,10 +1,10 @@
-interface Fn<A,B> {
+interface Fn<A, B> {
   (a: A): B;
 }
 
-interface Tuple<A,B> {
-  first(t: Tuple<A,B>): A;
-  second(t: Tuple<A,B>): B;
+interface Tuple<A, B> {
+  first(t: Tuple<A, B>): A;
+  second(t: Tuple<A, B>): B;
 }
 
 /**
@@ -19,15 +19,15 @@ interface Tuple<A,B> {
  * interfaces because, at the end of the day, typescript's types were made
  * for meme languages like Java, and not master-race languages like haskell
  */
-export interface Arrow<B, C> {
+export interface Arrow {
   /**
    * Basic Arrow Interface
    */
-  arr(fn: Fn<B,C>): ArrowInstance<B, C>;
-  first<D>(a: ArrowInstance<B, C>): ArrowInstance<Tuple<B, D>, Tuple<C, D>>;
-  second<D>(a: ArrowInstance<B, C>): ArrowInstance<Tuple<D, B>, Tuple<D, C>>;
-  split(a1: ArrowInstance<B, C>, a2: ArrowInstance<B, C>): ArrowInstance<Tuple<B, B>, Tuple<C, C>>;
-  fanout(a1: ArrowInstance<B, C>, a2: ArrowInstance<B, C>): ArrowInstance<B, Tuple<C, C>>;
+  arr<B, C>(fn: Fn<B, C>): ArrowInstance<B, C>;
+  first<B, C, D>(a: ArrowInstance<B, C>): ArrowInstance<Tuple<B, D>, Tuple<C, D>>;
+  second<B, C, D>(a: ArrowInstance<B, C>): ArrowInstance<Tuple<D, B>, Tuple<D, C>>;
+  split<B, C>(a1: ArrowInstance<B, C>, a2: ArrowInstance<B, C>): ArrowInstance<Tuple<B, B>, Tuple<C, C>>;
+  fanout<B, C>(a1: ArrowInstance<B, C>, a2: ArrowInstance<B, C>): ArrowInstance<B, Tuple<C, C>>;
 
   /**
    * Category Interface
@@ -38,14 +38,13 @@ export interface Arrow<B, C> {
    * differentiating between >>> composition and (.)
    * composition. Nor do we implement <<< composition
    */
-  id: ArrowInstance<B, C>;
-  compose<D>(a1: ArrowInstance<B,C>, a2: ArrowInstance<C, D>): ArrowInstance<B,D>;
+  id<B, C>(): ArrowInstance<B, C>;
+  compose<B, C, D>(a1: ArrowInstance<B, C>, a2: ArrowInstance<C, D>): ArrowInstance<B, D>;
 }
 
-export interface ArrowInstance<B,C> {
-  compose<D>(a: ArrowInstance<C,D>): ArrowInstance<B,D>;
-  first<D>(): ArrowInstance<Tuple<B,D>, Tuple<C,D>>;
-  second<D>(): ArrowInstance<Tuple<D,B>, Tuple<D,C>>;
-  split(a: ArrowInstance<B,C>): ArrowInstance<Tuple<B, B>, Tuple<C,C>>;
-  fanout(a: ArrowInstance<B,C>): ArrowInstance<B, Tuple<C,C>>;
+export interface ArrowInstance<B, C> {
+  /**
+   * As with Monad instances, we don't stipulate
+   * instance methods onto arrows.
+   */
 }

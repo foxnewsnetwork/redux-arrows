@@ -1,3 +1,3 @@
-export interface PureFunction<A,B> {
+export interface PureFunction<A, B> {
   (a: A): B
 }
