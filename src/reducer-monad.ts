@@ -22,7 +22,7 @@ function makeOkMeta(changedKeys: Keys): ReducerMeta {
   return { changedKeys, statusCode: ReducerStatusCode.ok };
 }
 
-class ReducerM implements ObservingReducer {
+class ObservingReducerM implements ObservingReducer {
   reducer: Reducer
   changingKeys: Keys
 
